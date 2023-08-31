@@ -7,22 +7,22 @@ import logging
 def filter_datum(fields: List[str], redaction: str, message: str, separator: str) -> str:
     """ A function that 
     Returns a obfuscated log message"""
-    for field in fields:
-        message = re.sub(field + "=" + ".*?"+ separator,
-                         field + "=" + redaction + separator, message)
+    for i in fields:
+        message = re.sub(i + "=" + ".*?"+ separator,
+                         i + "=" + redaction + separator, message)
     return message
 
 
-class RedactingFormatter(logging.Formatter):
-    """ Redacting Formatter class
-        """
+# class RedactingFormatter(logging.Formatter):
+#     """ Redacting Formatter class
+#         """
 
-    REDACTION = "***"
-    FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
-    SEPARATOR = ";"
+#     REDACTION = "***"
+#     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
+#     SEPARATOR = ";"
 
-    def __init__(self):
-        super(RedactingFormatter, self).__init__(self.FORMAT)
+#     def __init__(self):
+#         super(RedactingFormatter, self).__init__(self.FORMAT)
 
-    def format(self, record: logging.LogRecord) -> str:
+#     def format(self, record: logging.LogRecord) -> str:
         
