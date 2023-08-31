@@ -3,6 +3,7 @@
 from typing import List
 import re
 import logging
+
 def filter_datum(fields: List[str], redaction: str, message: str, separator: str) -> str:
     """ A function that 
     Returns a obfuscated log message"""
