@@ -3,6 +3,8 @@
 from typing import List
 import re
 import logging
+import os
+import mysql.connector
 
 def filter_datum(fields: List[str], redaction: str, message: str, separator: str) -> str:
     """ A function that 
@@ -39,3 +41,12 @@ def get_logger() -> logging.Logger:
     stream = logging.StreamHandler().setFormatter(RedactingFormatter(PII_FIELDS))
     logger.addHandler(stream)
     return logger
+
+def get_db():
+
+    user = os.getenv('PERSONAL_DATA_DB_USERNAME')
+    passwrd = os.getenv('PERSONAL_DATA_DB_PASSWORD')
+    host = os.getenv('PERSONAL_DATA_DB_HOST')
+    database = os.getenv('PERSONAL_DATA_DB_NAME')
+    connector = mysql.connector.connect(user=user, password=passwrd, host=host, database=database)
+    return connector
