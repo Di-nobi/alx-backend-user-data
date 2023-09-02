@@ -42,8 +42,8 @@ def get_logger() -> logging.Logger:
     logger.addHandler(stream)
     return logger
 
-def get_db():
-
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    """Stores database credientials as environment variable"""
     user = os.getenv('PERSONAL_DATA_DB_USERNAME')
     passwrd = os.getenv('PERSONAL_DATA_DB_PASSWORD')
     host = os.getenv('PERSONAL_DATA_DB_HOST')
