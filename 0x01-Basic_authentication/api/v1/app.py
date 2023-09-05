@@ -20,9 +20,10 @@ if os.getenv('AUTH_TYPE') == 'auth':
 if os.getenv('AUTH_TYPE') == 'basic_auth':
     from api.v1.auth.basic_auth import BasicAuth
     auth = BasicAuth()
-    
+
 @app.before_request
 def prev_req():
+    """Before auth"""
     if auth is None:
         pass
     if auth.require_auth(request.path, ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']):
@@ -32,7 +33,7 @@ def prev_req():
             abort(403)
 
 @app.errorhandler(401)
-def unauthorized(error):
+def unauthorized(error) -> str:
     """Returns a HTTP status code for an unauthorized request"""
     return jsonify({"error": "Unauthorized"}), 401
 
