@@ -16,7 +16,7 @@ class Auth():
         for i in excluded_paths:
             if i[0] == path:
                 return False
-            if i[-1] == "/":
+            if i[-1] == "*":
                 if i[:-1] == path:
                     return False
         return True
@@ -27,7 +27,5 @@ class Auth():
         if not request.headers.get('Authorization'):
             return None
         return request.headers.get('Authorization')
+
     
-    def current_user(self, request=None) -> TypeVar('User'):
-        """Current User"""
-        return None
