@@ -13,7 +13,6 @@ class SessionAuth(Auth):
             return None
         if type(user_id) is not str:
             return None
-        
         UUID = str(uuid.uuid4())
         self.user_id_by_session_id[UUID] = user_id
         return UUID
@@ -37,7 +36,7 @@ class SessionAuth(Auth):
         session = self.session_cookie(request)
         if not session:
             return False
-        if not self.user_id_for_session_id.get(session):
+        if not self.user_id_for_session_id(session):
             return False
         del self.user_id_by_session_id[session]
         return True

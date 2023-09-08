@@ -17,7 +17,7 @@ def auth():
         return jsonify({"error": "password missing"}), 400
     
     usr = User.search({"email": email})
-    if not usr or usr == []:
+    if not usr:
         return jsonify({"error": "no user found for this email"}), 401
     for user in usr:
         if not user.is_valid_password(password):
