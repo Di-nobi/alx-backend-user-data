@@ -17,8 +17,7 @@ def auth():
         return jsonify({"error": "password missing"}), 400
     
     usr = User.search({"email": email})
-
-    if usr is None or usr == []:
+    if not usr or usr == []:
         return jsonify({"error": "no user found for this email"}), 401
     for user in usr:
         if not user.is_valid_password(password):
@@ -28,7 +27,8 @@ def auth():
         res = jsonify(user.to_json())
         data = os.getenv('SESSION_NAME')
         res.set_cookie(data, session)
-        return res    
+        return res
+        
 @app_views.route('/auth_session/logout', methods=['DELETE'], strict_slashes=False)
 def delete_session():
     """Deletes the session auth"""
