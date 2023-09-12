@@ -1,6 +1,8 @@
 #!/usr/bin/env  python3
 """Flask App"""
-from flask import Flask, jsonify, abort
+from flask import jsonify
+from flask import Flask
+from flask import abort
 from user import User
 from auth import Auth
 from flask import request
