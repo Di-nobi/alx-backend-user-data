@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Encrypt My Users Passwords from Frauds and Freaks"""
+"""Encrypt My Users Passwords from Frauds and Freaks
+Authentication file that dialogues with the API for 
+the validation of a user
+"""
 import bcrypt
 from db import DB
 from user import User
@@ -7,11 +10,14 @@ from sqlalchemy.orm.exc import NoResultFound
 from uuid import uuid4
 
 def _hash_password(password: str) -> bytes:
-    """Hashes the password"""
+    """Hashes the password and returns it in bytes
+    Args: passwords: password in string foermat
+    """
     encrypt = password.encode('utf-8')
     return bcrypt.hashpw(encrypt, bcrypt.gensalt())
 
-def _generate_uuid():
+def _generate_uuid() -> str:
+    """Generates a uuid, returning a string format"""
     UUID = str(uuid4())
     return UUID
 

@@ -28,7 +28,7 @@ def reg_users():
         return jsonify({"message": "email already registered"}), 400
 @app.route('/sessions', methods=['POST'], strict_slashes=False)
 def login():
-    """Logs in a user"""
+    """Logs in a user if the credientials are valid"""
     email = request.form.get('email')
     password = request.form.get('password')
     login_usr = AUTH.valid_login(email, password)
