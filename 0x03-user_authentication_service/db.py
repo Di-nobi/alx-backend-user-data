@@ -44,7 +44,11 @@ class DB:
         return usr
     
     def find_user_by(self, **kwargs):
-        """Finds a user in the database"""
+        """
+        Finds a user in the database
+        Kwargs: key and value argument of a user detail
+        Return: User found
+        """
         session = self._session
         find = session.query(User).filter_by(**kwargs).first()
         if not find:
