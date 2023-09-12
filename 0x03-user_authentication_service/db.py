@@ -62,3 +62,4 @@ class DB:
             setattr(user, key, value)
         save
         return None
+
