@@ -55,8 +55,9 @@ class Auth:
     
     def get_user_from_session_id(self, session_id: str):
         """Gets a user from a session id"""
-        session_user = self._db.find_user_by(session_id=session_id)
-        if not session_user:
+        try:
+            session_user = self._db.find_user_by(session_id=session_id)
+        except NoResultFound:
             return None
         return session_user
     def destroy_session(self, user_id):
