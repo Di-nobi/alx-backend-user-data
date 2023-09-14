@@ -78,3 +78,17 @@ class Auth:
         UUID = _generate_uuid()
         self._db.update_user(user.id, reset_token=UUID)
         return UUID
+
+    def update_password(self, reset_token: str, password: str) -> None:
+        """"
+        Updates the password of a user
+        Args:
+            reset_token: string- reset token of an account
+            password: str - password of user
+        """
+        try:
+            self._db.find_user_by(reset_token=reset_token)
+        except NoResultFound:
+            raise ValueError
+        password = _hash_password(password)
+        self._db.update_user(user.id, hashed_password=password, reset_token=None)
