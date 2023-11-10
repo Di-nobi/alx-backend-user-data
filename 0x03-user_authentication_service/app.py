@@ -11,10 +11,12 @@ AUTH = Auth()
 
 app = Flask(__name__)
 
+
 @app.route("/", methods=['GET'], strict_slashes=False)
 def index() -> str:
     """Basic flask message"""
     return jsonify({"message": "Bienvenue"})
+
 
 @app.route('/users', methods=['POST'], strict_slashes=False)
 def reg_users():
@@ -23,9 +25,11 @@ def reg_users():
     password = request.form.get('password')
     try:
         reg_usr = AUTH.register_user(email, password)
-        return jsonify({"email": reg_usr.email, "message": "user created"}), 200
+        return jsonify({"email": reg_usr.email,"message": "user created"}),200
     except ValueError:
         return jsonify({"message": "email already registered"}), 400
+    
+
 @app.route('/sessions', methods=['POST'], strict_slashes=False)
 def login():
     """Logs in a user if the credientials are valid"""
@@ -38,6 +42,8 @@ def login():
     response = jsonify({"email": f"{email}", "message": "Logged in"})
     response.set_cookie("session_id", session_id)
     return response
+
+
 @app.route('/sessions', methods=['DELETE'], strict_slashes=False)
 def logout():
     """Logouts out a user by deleting current session"""
@@ -58,6 +64,8 @@ def get_profile():
         return jsonify({"email": user.email}), 200
     else:
         abort(403)
+
+
 @app.route('/reset_password', methods=['POST'], strict_slashes=False)
 def reset_token():
     """
@@ -69,6 +77,7 @@ def reset_token():
         abort(403)
     return jsonify({"email": f"{email}", "reset_token": f"{user}"}), 200
 
+
 @app.route('/reset_password', methods=['PUT'], strict_slashes=False)
 def update_password():
     """Updates password of a user """
@@ -79,7 +88,7 @@ def update_password():
         user = AUTH.update_password(reset_token, new_password)
     except ValueError:
         abort(403)
-    return jsonify({"email": f"{email}", "message": "Password updated"})
+    return jsonify({"email": f"{email}", "message": "Password updated"}), 200
 
 
 if __name__ == "__main__":

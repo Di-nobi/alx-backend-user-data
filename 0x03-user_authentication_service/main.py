@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """ Main File """
 import request
+
+
 def register_user(email: str, password: str) -> None:
     """Registers a User"""
     payload = {"email": email, "password": password}
@@ -8,12 +10,14 @@ def register_user(email: str, password: str) -> None:
     assert data.status_code == 200
     assert data.json() == {"email": email, "message": "user created"}
 
+
 def log_in_wrong_password(email: str, password: str) -> None:
     """ Checks for wrong password"""
     payload = {"email": email, "password": password}
     data = request.post("http://192.168.43.205:5000/sessions", payload)
     assert data.status_code == 200
     assert data.json() == {"email": email, "message": "Invalid Credientials"}
+
 
 def log_in(email: str, password: str) -> str:
     """ Checks for wrong password"""

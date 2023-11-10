@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Encrypt My Users Passwords from Frauds and Freaks
-Authentication file that dialogues with the API for 
+Authentication file that dialogues with the API for
 the validation of a user
 """
 import bcrypt
@@ -8,6 +8,7 @@ from db import DB
 from user import User
 from sqlalchemy.orm.exc import NoResultFound
 from uuid import uuid4
+
 
 def _hash_password(password: str) -> bytes:
     """Hashes the password and returns it in bytes
@@ -20,6 +21,7 @@ def _generate_uuid() -> str:
     """Generates a uuid, returning a string format"""
     UUID = str(uuid4())
     return UUID
+
 
 class Auth:
     """Auth class to interact with the authentication database.
@@ -60,6 +62,7 @@ class Auth:
         except NoResultFound:
             return None
         return session_user
+    
     def destroy_session(self, user_id):
         """Destroys a session"""
         try:
@@ -67,6 +70,7 @@ class Auth:
         except ValueError:
             return None
         return None
+    
     def get_reset_password_token(self, email: str):
         """Generates a reset password token for a user
         Args:
@@ -91,4 +95,5 @@ class Auth:
         except NoResultFound:
             raise ValueError
         password = _hash_password(password)
-        self._db.update_user(user.id, hashed_password=password, reset_token=None)
+        self._db.update_user(user.id, hashed_password=password,
+                             reset_token=None)
