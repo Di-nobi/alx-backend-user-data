@@ -11,14 +11,11 @@ class Auth():
             return True
         if excluded_paths is None or excluded_paths == []:
             return True
-        if path in excluded_paths:
+        if path in excluded_paths or "{}/".format(path) in excluded_paths:
             return False
         for i in excluded_paths:
-            if i[0] == path:
+            if path.startswith(excluded_paths[:-1]):
                 return False
-            if i[-1] == "*" or i[-1] == '/':
-                if i[:-1] == path:
-                    return False
         return True
     def authorization_header(self, request=None) -> str:
         """Header Authorization"""
